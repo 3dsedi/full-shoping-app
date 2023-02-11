@@ -1,0 +1,14 @@
+GET http://localhost:3001/api/product
+
+ ###
+
+ POST  http://localhost:3001/api/user
+ 
+Content-Type: application/json
+
+{
+    "email": "mary2@mary.com",
+    "name": "mary2",
+    "password": "mary2",
+    "role": "user"
+ }
