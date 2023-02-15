@@ -1,5 +1,5 @@
 import  express  from 'express';
-import {getUsers , getUserById, addUser, getUserByEmail} from './db.js'
+import {getUsers , getUserById, addUser, getUserByEmail, getStores} from './db.js'
 import {getProducts} from './db.js'
 
 import bcrypt from 'bcrypt'
@@ -58,7 +58,7 @@ app.listen(port, () => {
       if(!isMatch) {
         return res.status(404).send({authorized: false  })
       }
-      return res.status(201).send({ authorized: isMatch });
+      return res.status(201).send({ authorized: isMatch, user: user[0] });
     } catch (err) {
       console.error(err.message);
       res.status(500).send({ error: 'Error logging in' });
@@ -77,7 +77,7 @@ app.listen(port, () => {
       if (req.body.role === "admin") {
           id = "a_" + Date.now().toString();
           storeId = Date.now().toString()
-      } else if (req.body.role === "super_admin") {
+      } else if (req.body.role === "superadmin") {
           id = "s_" + Date.now().toString();
           storeId = '1';
       } else {
@@ -109,13 +109,22 @@ app.listen(port, () => {
       });
   });
 
+  //store
+  app.get('/api/store',cors(), async (req, res) => {
+    try {
+      const stores = await getStores();
+      res.json(stores);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('An error occurred while trying to retrieve store');
+    }
+  });
 
   //products
   
   app.get('/api/product',cors(), async (req, res) => {
     try {
       const products = await getProducts();
-      console.log(products)
       res.json(products);
     } catch (err) {
       console.error(err.message);

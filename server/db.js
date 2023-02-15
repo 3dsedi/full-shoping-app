@@ -8,13 +8,13 @@ dotenv.config()
 const app = express();
 
 const uri = process.env.MONGO_URI;
-const User = mongoose.model("User", UserSchema);
+// const User = mongoose.model("User", UserSchema);
 
 
 const connectToDb = async () => {
     try {
       const client = await MongoClient.connect(uri, { useUnifiedTopology: true });
-      console.log('Connected successfully to server');
+      console.log('Connected successfully to database');
       return client.db('store');
     } catch (err) {
       console.error(err.message);
@@ -68,14 +68,25 @@ const connectToDb = async () => {
     }
   }
 
+  //store
+  export const getStores = async () => {
+    try {
+      const db = await connectToDb();
+      const collection = db.collection('stores');
+      const stores = await collection.find({}).toArray();
+      return stores;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   //products
 
   export const getProducts = async () => {
     try {
       const db = await connectToDb();
-      const collection = db.collection('products');
+      const collection = db.collection('newProducts');
       const products = await collection.find({}).toArray();
-      console.log(products[5])
       return products;
     } catch (err) {
       console.error(err.message);

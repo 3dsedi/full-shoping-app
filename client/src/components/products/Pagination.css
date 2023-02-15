@@ -1,0 +1,29 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .page-item {
+    margin: 0 0.5rem;
+  }
+  
+  .page-link {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+  }
+  .page-item.next-pages {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .page-item.next-pages .page-link {
+    padding: 0;
+  }
+  
+  .page-item.next-pages .fa-angle-right {
+    margin: 0 0.5rem;
+  }

@@ -1,8 +1,13 @@
-import React, { useRef } from "react";
+import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 function LoginForm({onLogin}) {
   const emailRef = useRef()
   const passRef = useRef()
+  const navigate = useNavigate()
 
   const userLoginHandler = async (event) => {
     event.preventDefault()
@@ -10,8 +15,19 @@ function LoginForm({onLogin}) {
        email : emailRef.current?.value,
        password : passRef.current?.value,
     }
-    onLogin(enteredUser)
-  }
+    // onLogin(enteredUser)
+    const userData = await onLogin(enteredUser)
+    console.log(userData.user.role)
+    const role = userData.user.role
+    if(role === 'user') {
+      navigate('/products')
+    }else if (role === 'admin') {
+      navigate('/store') 
+    } else if (role === 'superadmin'){
+     navigate('/admin/super')
+    }
+    }
+  
   return (
       <>
         <h3>Login</h3>

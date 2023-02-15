@@ -9,11 +9,14 @@
 }
 
 .product_item img {
-    width: 150px;
+    width: 100px;
     height: 150px;
     margin: auto;
 
 }
+.product h3 {
+    margin-top: 1rem;
+  }
 
 .text_section {
     display: flex;
@@ -21,6 +24,11 @@
     margin: auto;
     width: 50em;
 }
+.product {
+    width: 25%;
+    margin: 1rem;
+    text-align: center;
+  }
 
 @media (max-width: 800px) {
     .text_section{

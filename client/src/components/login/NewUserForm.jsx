@@ -7,18 +7,21 @@ function NewUserForm({addUser}) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmRef = useRef();
-  const roleRef = useRef();
+  const adminRef = useRef();
+  const userRef = useRef();
 
   const userSubmitHandler = async (event) => {
     event.preventDefault();
 
     const enteredUser = {
-       name : nameRef.current?.value,
-       email : emailRef.current?.value,
-       password : passwordRef.current?.value,
-       confirmed : confirmRef.current?.value,
-       role : roleRef.current?.value,
-    }
+      name: nameRef.current?.value,
+      email: emailRef.current?.value,
+      password: passwordRef.current?.value,
+      confirmed: confirmRef.current?.value,
+      role: adminRef.current?.checked ? 'admin' : 'user',
+    };
+    
+    console.log(enteredUser)
 
     if (passwordRef.current?.value !== confirmRef.current?.value) {
         return;
@@ -42,36 +45,14 @@ function NewUserForm({addUser}) {
           <input placeholder={"confirm password"} id={"confirmed_password_input"} ref={confirmRef}/>
           <br/>
           <label htmlFor="role">Type of User</label>
-          {/* <select placeholder={"role"} id={"role_input"}>
-            <option value={"user"}>User</option>
-            <option value={"admin"}>Admin</option>
-          </select> */}
-           <div >
-          <label  htmlFor="role">
-            Role
-          </label>
-          </div>
-          <div >
-          <input
-            type="radio"
-            id="user"
-            name="role"
-            value="user"
-            ref={roleRef}
-          />
-          <label htmlFor="male">User</label>
-          <input
-            type="radio"
-            id="admin"
-            name="role"
-            value="admin"
-            ref={roleRef}
-          />
-          <label htmlFor="female">Admin</label>
-          
-        </div>
+<div>
+  <input type="radio" id="admin" name="role" value="admin" ref={adminRef} />
+  <label htmlFor="admin">Admin</label>
+  <input type="radio" id="user" name="role" value="user" ref={userRef} />
+  <label htmlFor="user">User</label>
+</div>
           <br/>
-          <input type={'submit'}/>
+          <button className="submit" >Add</button>
         </form>
       </>
   )

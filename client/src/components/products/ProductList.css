@@ -1,0 +1,24 @@
+.product_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.product_list_form{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.product_list_lable{
+    margin-right: 1rem;
+}
+.product_list_select{
+    padding: 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid #ccc;
+}
+.product_list_main{
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
