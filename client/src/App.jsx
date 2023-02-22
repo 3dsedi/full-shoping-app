@@ -17,6 +17,7 @@ import ProductList from './components/Products/ProductList.jsx';
 import LoginForm from './components/login/LoginForm.jsx';
 import NewUserForm from './components/login/NewUserForm.jsx';
 import SuperAdminPage from "./admin/SuperAdminPage.jsx";
+import StoreProductList from './components/store/StoreProductList.jsx'
 import Home from './components/Home';
 import { AddStore } from './components/products/AddStore';
 
@@ -40,7 +41,8 @@ function App() {
     const [currentCart, setCurrentCart] = useState(getCurrentCart());
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(null);
-    const [userRole, setUserRole] = useState(null);
+    const [storeData, setStoreData] = useState({});
+    const [storeProducts, setStoreProducts] = useState([]);
     
     const fetchProducts = async () => {
       try {
@@ -102,7 +104,7 @@ const authorizeUser = async (enteredUser) => {
     const reqBody = { email, password };
   
     try {
-      const response = await fetch("http://localhost:3001/api/user/login", {
+      const response = await fetch("http://localhost:3001/api/login", {
         mode: "cors",
         method: "POST",
         headers: {
@@ -113,8 +115,9 @@ const authorizeUser = async (enteredUser) => {
   
       if (response.status === 201) {
         const userData = await response.json();
-        setUserRole(userData.user.role)
-        console.log(userData.user.role)
+        console.log(userData.storeData)
+        setStoreData(userData.storeData) 
+        setStoreProducts(userData.productData)
         return userData
       } else if (response.status === 404) {
         alert("User not found");
@@ -124,9 +127,6 @@ const authorizeUser = async (enteredUser) => {
     }
   };
   
-
-
-
     return (
         <div className="App">
             <Router>
@@ -137,11 +137,12 @@ const authorizeUser = async (enteredUser) => {
                 <Routes>
                 <Route exact path='/'element={< Home />}> </Route>
                 <Route path="/login" element={< LoginForm onLogin={authorizeUser}/>}></Route>
-                {/* <Route path="/products" element={< ProductList products={products}/>}></Route> */}
+                <Route path="/products" element={< ProductList products={products}/>}></Route>
+                <Route path="/store" element={<StoreProductList storeData={storeData} storeProducts={storeProducts}/>}></Route>
                 <Route path="/create-new-user"element={< NewUserForm addUser={addUser}/>}></Route>
                 <Route path="/create-new-store"element={< AddStore addStore={addStore}/>}></Route>
-                <Route exact path='/products' element={<ProtectedRoute element = {<ProductList/>}
-                 userRole={userRole} allowedRoles={['user','superadmin']} products={products}/>} />
+                {/* <Route exact path='/products' element={<ProtectedRoute element = {<ProductList/>}
+                 userRole={userRole} allowedRoles={['user','superadmin']} products={products}/>} /> */}
                 
 
                     {/* <Route exact path='/create-new-user' element={< NewUserForm addUser={addUser}/>}></Route>

@@ -80,6 +80,41 @@ const connectToDb = async () => {
     }
   };
 
+  export const getStoreById = async (id) => {
+    try {
+      const db = await connectToDb();
+      const collection = db.collection('stores');
+      const store = await collection.find({storeId: id}).toArray();
+      return store;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  export  const addStore= async (storeData)=> {
+    try {
+     const db = await connectToDb();
+      const collection = db.collection('stores');
+      await collection.insertOne(storeData)
+      return storeData;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+  export const getStoreProducts = async (id) => {
+    try {
+      const db = await connectToDb();
+      const collection = db.collection('newProducts');
+      const products = await collection.find({storeId: id}).toArray();
+      console.log(products)
+      return products;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+
   //products
 
   export const getProducts = async () => {
@@ -92,5 +127,17 @@ const connectToDb = async () => {
       console.error(err.message);
     }
   };
+  export  const addProduct= async (productData)=> {
+    try {
+     const db = await connectToDb();
+      const collection = db.collection('newProducts');
+      await collection.insertOne(productData)
+      return productData;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+
 
 

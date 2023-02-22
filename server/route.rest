@@ -1,14 +1,14 @@
-GET http://localhost:3001/api/store
 
- ###
 
- POST  http://localhost:3001/api/user
- 
+ POST  http://localhost:3001/api/product
 Content-Type: application/json
 
 {
-    "email": "mary2@mary.com",
-    "name": "mary2",
-    "password": "mary2",
-    "role": "user"
+    "storeId": "1676366954898",
+    "title": "nike T-shirt",
+    "imageUrl": "nike T-shirt",
+    "dscdescription": "best quality cotton shirt ",
+    "price": "$9.57 ",
+    "quantity": 20,
+    "category": "Sport"
  }

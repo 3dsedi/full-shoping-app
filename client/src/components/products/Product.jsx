@@ -1,7 +1,6 @@
 import './Product.css'
 
 function Product({product, addToCart}) {
-    console.log(product.imageUrl)
     return (
         <>
             <article className={"product_item product"}>

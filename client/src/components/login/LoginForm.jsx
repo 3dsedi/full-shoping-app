@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
 function LoginForm({onLogin}) {
   const emailRef = useRef()
   const passRef = useRef()
@@ -17,7 +16,6 @@ function LoginForm({onLogin}) {
     }
     // onLogin(enteredUser)
     const userData = await onLogin(enteredUser)
-    console.log(userData.user.role)
     const role = userData.user.role
     if(role === 'user') {
       navigate('/products')

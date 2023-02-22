@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 
 function NewUserForm({addUser}) {
@@ -9,6 +9,11 @@ function NewUserForm({addUser}) {
   const confirmRef = useRef();
   const adminRef = useRef();
   const userRef = useRef();
+
+  const [selectedRole, setSelectedRole] = useState('user');
+  const handleRadioChange = (event) => {
+    setSelectedRole(event.target.value);
+  }
 
   const userSubmitHandler = async (event) => {
     event.preventDefault();
@@ -32,7 +37,18 @@ function NewUserForm({addUser}) {
       <>
         <h3>Create new user</h3>
         <form onSubmit={userSubmitHandler} className={"create_user_form"}>
-          <label htmlFor="email_input">name</label>
+          <label htmlFor="role">Type of User</label>
+        <div>
+         <input type="radio" id="admin" name="role" value="admin" ref={adminRef} onChange={handleRadioChange}  />
+         <label htmlFor="admin">Admin</label>
+         <input type="radio" id="user" name="role" value="user" ref={userRef} onChange={handleRadioChange}  />
+         <label htmlFor="user">User</label>
+        </div>
+        {selectedRole === 'user' ? 
+        (<label htmlFor="name_input">name</label>) : (
+          <label htmlFor="storename_input">store name</label>
+        )
+        }
           <input placeholder={"name"} id={"name_input"} ref={nameRef}/>
           <br/>
           <label htmlFor="email_input">Email</label>
@@ -43,14 +59,6 @@ function NewUserForm({addUser}) {
           <br/>
           <label htmlFor="confirmed_password_input">Confirm password</label>
           <input placeholder={"confirm password"} id={"confirmed_password_input"} ref={confirmRef}/>
-          <br/>
-          <label htmlFor="role">Type of User</label>
-<div>
-  <input type="radio" id="admin" name="role" value="admin" ref={adminRef} />
-  <label htmlFor="admin">Admin</label>
-  <input type="radio" id="user" name="role" value="user" ref={userRef} />
-  <label htmlFor="user">User</label>
-</div>
           <br/>
           <button className="submit" >Add</button>
         </form>
