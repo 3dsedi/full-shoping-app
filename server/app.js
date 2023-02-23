@@ -11,7 +11,10 @@ import {
   getStoreById,
   addStore,
   getStoreProducts,
-  addProduct
+  addProduct, 
+  createCart,
+  getCart,
+  addItemToCart
 } from "./db.js";
 import { getProducts } from "./db.js";
 
@@ -136,7 +139,9 @@ app.post("/api/login", cors(), async (req, res) => {
     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
 
     if (user[0].role === "user") {
-      return res.status(201).send({ authorized: isMatch, user: user[0], token: token });
+      const cart = await getCart (user[0].id)
+      console.log(cart)
+      return res.status(201).send({ authorized: isMatch, user: user[0], token: token, cart: cart });
     } else if (user[0].role === "admin") {
       const storeData = await getStoreById(user[0].storeId);
       const productData = await getStoreProducts(user[0].storeId);
@@ -174,9 +179,20 @@ app.post("/api/user", cors(), async (req, res) => {
   } else if (req.body.role === "superadmin") {
     id = "s_" + Date.now().toString();
     storeId = "1";
-  } else {
+  } else if (req.body.role === "user") {
     id = "u_" + Date.now().toString();
     storeId = "0";
+    try {
+      const cartData = {
+        cartId: id,
+        items: [],
+        totalItems: 0,
+        totalAmount: 0
+      }
+       createCart(cartData);
+    }catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   }
 
   userData.id = id;
@@ -273,13 +289,13 @@ app.get("/api/product", cors(), async (req, res) => {
 app.post("/api/product", cors(), async (req, res) => {
   const productData = {
     title: req.body.title,
-    dscdescription: req.body.dsc,
+    dscdescription: req.body.dscdescription,
     imageUrl: req.body.imageUrl,
     price: req.body.price,
     quantity: req.body.quantity,
     category:  req.body.category,
     date: new Date(),
-    id: generateProductId(),
+    productId: generateProductId(),
     storeId: req.body.storeId
   };
   try {
@@ -290,5 +306,19 @@ app.post("/api/product", cors(), async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+
+// cart
+app.post("/api/cart/additem",cors(), async (req, res) => {
+  const userId = req.body.userId
+  const productId = req.body.productId
+  try {
+    const cart = await addItemToCart(userId, productId);
+    res.status(200).json(cart);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
   }
 });

@@ -1,14 +1,9 @@
 
 
- POST  http://localhost:3001/api/product
+ POST  http://localhost:3001/api/cart/additem
 Content-Type: application/json
 
 {
-    "storeId": "1676366954898",
-    "title": "nike T-shirt",
-    "imageUrl": "nike T-shirt",
-    "dscdescription": "best quality cotton shirt ",
-    "price": "$9.57 ",
-    "quantity": 20,
-    "category": "Sport"
+    "userId" : "u_1677082687408",
+    "productId" : "Vj1qeQqU"
  }

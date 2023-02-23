@@ -158,7 +158,7 @@ app.get("/api/user/:id", (0, _cors["default"])(), function _callee2(req, res) {
 // });
 
 app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
-  var email, password, user, isMatch, token, storeData, productData;
+  var email, password, user, isMatch, token, cart, storeData, productData;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -203,31 +203,38 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
           }, process.env.JWT_SECRET);
 
           if (!(user[0].role === "user")) {
-            _context3.next = 18;
+            _context3.next = 22;
             break;
           }
 
+          _context3.next = 17;
+          return regeneratorRuntime.awrap((0, _db.getCart)(user[0].id));
+
+        case 17:
+          cart = _context3.sent;
+          console.log(cart);
           return _context3.abrupt("return", res.status(201).send({
             authorized: isMatch,
             user: user[0],
-            token: token
+            token: token,
+            cart: cart
           }));
 
-        case 18:
+        case 22:
           if (!(user[0].role === "admin")) {
-            _context3.next = 28;
+            _context3.next = 32;
             break;
           }
 
-          _context3.next = 21;
+          _context3.next = 25;
           return regeneratorRuntime.awrap((0, _db.getStoreById)(user[0].storeId));
 
-        case 21:
+        case 25:
           storeData = _context3.sent;
-          _context3.next = 24;
+          _context3.next = 28;
           return regeneratorRuntime.awrap((0, _db.getStoreProducts)(user[0].storeId));
 
-        case 24:
+        case 28:
           productData = _context3.sent;
           return _context3.abrupt("return", res.status(201).send({
             authorized: isMatch,
@@ -237,32 +244,32 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
             token: token
           }));
 
-        case 28:
+        case 32:
           return _context3.abrupt("return", res.status(404).send({
             authorized: false
           }));
 
-        case 29:
-          _context3.next = 35;
+        case 33:
+          _context3.next = 39;
           break;
 
-        case 31:
-          _context3.prev = 31;
+        case 35:
+          _context3.prev = 35;
           _context3.t0 = _context3["catch"](2);
           console.error(_context3.t0.message);
           res.status(500).send({
             error: "Error logging in"
           });
 
-        case 35:
+        case 39:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[2, 31]]);
+  }, null, null, [[2, 35]]);
 });
 app.post("/api/user", (0, _cors["default"])(), function _callee5(req, res) {
-  var userData, id, storeId, name, storeData, saltRounds, plainPassword;
+  var userData, id, storeId, name, storeData, cartData, saltRounds, plainPassword;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
@@ -292,9 +299,23 @@ app.post("/api/user", (0, _cors["default"])(), function _callee5(req, res) {
           } else if (req.body.role === "superadmin") {
             id = "s_" + Date.now().toString();
             storeId = "1";
-          } else {
+          } else if (req.body.role === "user") {
             id = "u_" + Date.now().toString();
             storeId = "0";
+
+            try {
+              cartData = {
+                cartId: id,
+                items: [],
+                totalItems: 0,
+                totalAmount: 0
+              };
+              (0, _db.createCart)(cartData);
+            } catch (error) {
+              res.status(400).json({
+                error: error.message
+              });
+            }
           }
 
           userData.id = id;
@@ -538,13 +559,13 @@ app.post("/api/product", (0, _cors["default"])(), function _callee11(req, res) {
         case 0:
           productData = {
             title: req.body.title,
-            dscdescription: req.body.dsc,
+            dscdescription: req.body.dscdescription,
             imageUrl: req.body.imageUrl,
             price: req.body.price,
             quantity: req.body.quantity,
             category: req.body.category,
             date: new Date(),
-            id: generateProductId(),
+            productId: generateProductId(),
             storeId: req.body.storeId
           };
           _context11.prev = 1;
@@ -573,4 +594,36 @@ app.post("/api/product", (0, _cors["default"])(), function _callee11(req, res) {
       }
     }
   }, null, null, [[1, 8]]);
+}); // cart
+
+app.post("/api/cart/additem", (0, _cors["default"])(), function _callee12(req, res) {
+  var userId, productId, cart;
+  return regeneratorRuntime.async(function _callee12$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          userId = req.body.userId;
+          productId = req.body.productId;
+          _context12.prev = 2;
+          _context12.next = 5;
+          return regeneratorRuntime.awrap((0, _db.addItemToCart)(userId, productId));
+
+        case 5:
+          cart = _context12.sent;
+          res.status(200).json(cart);
+          _context12.next = 13;
+          break;
+
+        case 9:
+          _context12.prev = 9;
+          _context12.t0 = _context12["catch"](2);
+          console.error(_context12.t0);
+          res.status(500).send('Server Error');
+
+        case 13:
+        case "end":
+          return _context12.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
 });

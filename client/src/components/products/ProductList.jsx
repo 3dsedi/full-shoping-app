@@ -8,8 +8,7 @@ import { Pagination } from './Pagination.jsx';
 const sorted = false;
 
 
-function ProductList({products, userRole}) {
-  console.log(products)
+function ProductList({products}) {
     const [filteredData, setFilteredData] = useState();
     const [isAll, setIsAll] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -69,6 +68,11 @@ function ProductList({products, userRole}) {
         </article>
       )}
 
+
+
+
+
+      
 
 
 export default ProductList;

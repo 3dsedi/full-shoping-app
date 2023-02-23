@@ -1,24 +1,35 @@
-import CartItem from './CartItem.jsx';
+import React from 'react';
 
-let sumOfItems = 0;
-function Cart({products, removeFromCart}) {
-  if (products.length === 0) {
-    return <h3>No items in cart, why not add some?</h3>
+function Cart(props) {
+ const cartData = props.cartData
+ const userData = props.userData
+  if (!cartData) {
+    return null;
   }
+
+  if (cartData.items.length === 0) {
+    return <div>
+      <h2> Hello {userData.name} </h2>
+      <h2> Your cart is empty</h2>
+    </div>;
+  }
+
   return (
-      <div>{
-        products
-            .map((p) => {
-              sumOfItems += (p.price * p.amount);
-              return (
-                  <CartItem key={p.id}
-                           product={p}
-                  removeFromCart={removeFromCart}/>
-              )
-            })
-      }
-      <h3>Total price for items: {sumOfItems}</h3>
-      </div>)
+    <div>
+      <h2> Hello {userData.name} </h2>
+      <h2>You have {cartData.totalItems} items in your cart</h2>
+      <ul>
+        {cartData.items.map(item => (
+          <li key={item.productId}>
+            {item.title}
+            {item.price}
+          </li>
+        ))}
+      </ul>
+      <p>Total Items: {cartData.totalItems}</p>
+      <p>Total Amount: {cartData.totalAmount}</p>
+    </div>
+  );
 }
 
 export default Cart;

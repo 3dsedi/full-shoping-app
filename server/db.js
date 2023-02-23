@@ -139,5 +139,83 @@ const connectToDb = async () => {
     }
   }
 
+  //cart
+
+  export  const createCart= async (cartData)=> {
+    try {
+     const db = await connectToDb();
+      const collection = db.collection('cart');
+      await collection.insertOne(cartData)
+      return cartData;
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+  export const getCart = async (id) => {
+    try {
+      const db = await connectToDb();
+      const collection = db.collection('cart');
+      const cart = await collection.find({cartId: id}).toArray();
+      return cart;
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+
+// export const  addItemToCart = async (userId, productId) => {
+//   try {
+//     const db = await connectToDb();
+//     const cartCollection = db.collection('cart');
+//     const cart = await cartCollection.find({cartId: userId}).toArray();
+//     const productCollection = db.collection('newProducts');
+//     const product = await productCollection.find({productId: productId}).toArray();
+   
+//     const existingItem = cart.items.find(item => item.productId === productId);
+//     if (existingItem) {
+//       existingItem.quantity++;
+//     } else {
+//       cart.items.push(product);
+//     }
+//     cart.totalItems = cart.items.length;
+//     cart.totalAmount += product.price;
+
+//     await cart.save();
+
+//     return cart;
+//   } catch (err) {
+//     console.error(err);
+//     throw new Error('Could not add item to cart');
+//   }
+// }
+export const addItemToCart = async (userId, productId) => {
+  try {
+    const db = await connectToDb();
+    const cartCollection = db.collection('cart');
+    const cart = await cartCollection.findOne({ cartId: userId });
+    const productCollection = db.collection('newProducts');
+    const product = await productCollection.findOne({ productId: productId });
+    console.log(product)
+   
+    const existingItem = cart.items.find(item => item.productId === productId);
+    if (existingItem) {
+      existingItem.quantity++;
+    } else {
+      cart.items.push(product);
+    }
+    cart.totalItems = cart.items.length;
+    cart.totalAmount += product.price;
+
+    await cartCollection.updateOne({ cartId: userId }, { $set: cart });
+
+    return cart;
+  } catch (err) {
+    console.error(err);
+    throw new Error('Could not add item to cart');
+  }
+};
+
+
 
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import StoreProduct from "./StoreProduct";
+import { Link} from 'react-router-dom';
 
 function StoreProductList({ storeData, storeProducts, addNewProduct  }) {
   const [filteredProducts, setFilteredProducts] = useState(storeProducts);
@@ -40,6 +41,9 @@ console.log(storeData)
           <option value="date-new-to-old">Date: New to Old</option>
           <option value="date-old-to-new">Date: Old to New</option>
         </select>
+        <li>
+        <Link to="/create-new-product">Add new Product</Link>
+      </li>
       </div>
       <div>
         {filteredProducts.map((product , index) => (

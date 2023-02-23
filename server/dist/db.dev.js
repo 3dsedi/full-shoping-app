@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addProduct = exports.getProducts = exports.getStoreProducts = exports.addStore = exports.getStoreById = exports.getStores = exports.addUser = exports.getUserByEmail = exports.getUserById = exports.getUsers = void 0;
+exports.addItemToCart = exports.getCart = exports.createCart = exports.addProduct = exports.getProducts = exports.getStoreProducts = exports.addStore = exports.getStoreById = exports.getStores = exports.addUser = exports.getUserByEmail = exports.getUserById = exports.getUsers = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -409,6 +409,168 @@ var addProduct = function addProduct(productData) {
       }
     }
   }, null, null, [[0, 10]]);
-};
+}; //cart
+
 
 exports.addProduct = addProduct;
+
+var createCart = function createCart(cartData) {
+  var db, collection;
+  return regeneratorRuntime.async(function createCart$(_context12) {
+    while (1) {
+      switch (_context12.prev = _context12.next) {
+        case 0:
+          _context12.prev = 0;
+          _context12.next = 3;
+          return regeneratorRuntime.awrap(connectToDb());
+
+        case 3:
+          db = _context12.sent;
+          collection = db.collection('cart');
+          _context12.next = 7;
+          return regeneratorRuntime.awrap(collection.insertOne(cartData));
+
+        case 7:
+          return _context12.abrupt("return", cartData);
+
+        case 10:
+          _context12.prev = 10;
+          _context12.t0 = _context12["catch"](0);
+          console.error(_context12.t0);
+          return _context12.abrupt("return", _context12.t0);
+
+        case 14:
+        case "end":
+          return _context12.stop();
+      }
+    }
+  }, null, null, [[0, 10]]);
+};
+
+exports.createCart = createCart;
+
+var getCart = function getCart(id) {
+  var db, collection, cart;
+  return regeneratorRuntime.async(function getCart$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          _context13.prev = 0;
+          _context13.next = 3;
+          return regeneratorRuntime.awrap(connectToDb());
+
+        case 3:
+          db = _context13.sent;
+          collection = db.collection('cart');
+          _context13.next = 7;
+          return regeneratorRuntime.awrap(collection.find({
+            cartId: id
+          }).toArray());
+
+        case 7:
+          cart = _context13.sent;
+          return _context13.abrupt("return", cart);
+
+        case 11:
+          _context13.prev = 11;
+          _context13.t0 = _context13["catch"](0);
+          console.error(_context13.t0.message);
+
+        case 14:
+        case "end":
+          return _context13.stop();
+      }
+    }
+  }, null, null, [[0, 11]]);
+}; // export const  addItemToCart = async (userId, productId) => {
+//   try {
+//     const db = await connectToDb();
+//     const cartCollection = db.collection('cart');
+//     const cart = await cartCollection.find({cartId: userId}).toArray();
+//     const productCollection = db.collection('newProducts');
+//     const product = await productCollection.find({productId: productId}).toArray();
+//     const existingItem = cart.items.find(item => item.productId === productId);
+//     if (existingItem) {
+//       existingItem.quantity++;
+//     } else {
+//       cart.items.push(product);
+//     }
+//     cart.totalItems = cart.items.length;
+//     cart.totalAmount += product.price;
+//     await cart.save();
+//     return cart;
+//   } catch (err) {
+//     console.error(err);
+//     throw new Error('Could not add item to cart');
+//   }
+// }
+
+
+exports.getCart = getCart;
+
+var addItemToCart = function addItemToCart(userId, productId) {
+  var db, cartCollection, cart, productCollection, product, existingItem;
+  return regeneratorRuntime.async(function addItemToCart$(_context14) {
+    while (1) {
+      switch (_context14.prev = _context14.next) {
+        case 0:
+          _context14.prev = 0;
+          _context14.next = 3;
+          return regeneratorRuntime.awrap(connectToDb());
+
+        case 3:
+          db = _context14.sent;
+          cartCollection = db.collection('cart');
+          _context14.next = 7;
+          return regeneratorRuntime.awrap(cartCollection.findOne({
+            cartId: userId
+          }));
+
+        case 7:
+          cart = _context14.sent;
+          productCollection = db.collection('newProducts');
+          _context14.next = 11;
+          return regeneratorRuntime.awrap(productCollection.findOne({
+            productId: productId
+          }));
+
+        case 11:
+          product = _context14.sent;
+          console.log(product);
+          existingItem = cart.items.find(function (item) {
+            return item.productId === productId;
+          });
+
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.items.push(product);
+          }
+
+          cart.totalItems = cart.items.length;
+          cart.totalAmount += product.price;
+          _context14.next = 19;
+          return regeneratorRuntime.awrap(cartCollection.updateOne({
+            cartId: userId
+          }, {
+            $set: cart
+          }));
+
+        case 19:
+          return _context14.abrupt("return", cart);
+
+        case 22:
+          _context14.prev = 22;
+          _context14.t0 = _context14["catch"](0);
+          console.error(_context14.t0);
+          throw new Error('Could not add item to cart');
+
+        case 26:
+        case "end":
+          return _context14.stop();
+      }
+    }
+  }, null, null, [[0, 22]]);
+};
+
+exports.addItemToCart = addItemToCart;
