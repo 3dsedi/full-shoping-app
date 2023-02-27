@@ -8,7 +8,7 @@ import { Pagination } from './Pagination.jsx';
 const sorted = false;
 
 
-function ProductList({products}) {
+function ProductList({products, userData, addToCart}) {
     const [filteredData, setFilteredData] = useState();
     const [isAll, setIsAll] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
@@ -57,7 +57,7 @@ function ProductList({products}) {
           </form>
             <main className='product_list_main'>
         {currentItems?.map((p, index) => (
-          <Product key={index} product={p} />
+          <Product key={index} product={p} userData={userData} addToCart={addToCart} />
         ))}
       </main>
       <Pagination

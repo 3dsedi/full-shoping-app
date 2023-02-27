@@ -108,57 +108,9 @@ app.get("/api/user/:id", (0, _cors["default"])(), function _callee2(req, res) {
       }
     }
   }, null, null, [[0, 9]]);
-}); // app.post("/api/user/login", cors(), async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   try {
-//     const user = await getUserByEmail(email);
-//     if (!user) {
-//       return res.status(404).send({ error: "no user found" });
-//     }
-//     const isMatch = await bcrypt.compare(password, user[0].password);
-//     if (!isMatch) {
-//       return res.status(404).send({ authorized: false });
-//     }
-//     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
-//     return res
-//       .status(201)
-//       .send({ authorized: isMatch, user: user[0], token: token });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send({ error: "Error logging in" });
-//   }
-// });
-// app.post("/api/admin/login", cors(), async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   try {
-//     const user = await getUserByEmail(email);
-//     if (!user) {
-//       return res.status(404).send({ error: "no user found" });
-//     }
-//     const isMatch = await bcrypt.compare(password, user[0].password);
-//     if (!isMatch) {
-//       return res.status(404).send({ authorized: false });
-//     }
-//     let storeData = {};
-//     let productData = [];
-//     if (user[0].role === "admin") {
-//       storeData = await getStoreById(user[0].storeId);
-//       productData = await getStoreProducts(user[0].storeId);
-//     }
-//     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
-//     return res
-//       .status(201)
-//       .send({ authorized: isMatch, user: user[0], storeData: storeData, productData: productData,token: token });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send({ error: "Error logging in" });
-//   }
-// });
-
+});
 app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
-  var email, password, user, isMatch, token, cart, storeData, productData;
+  var email, password, user, isMatch, token, data, cart, storeData, productData;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -203,7 +155,7 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
           }, process.env.JWT_SECRET);
 
           if (!(user[0].role === "user")) {
-            _context3.next = 22;
+            _context3.next = 23;
             break;
           }
 
@@ -211,7 +163,8 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
           return regeneratorRuntime.awrap((0, _db.getCart)(user[0].id));
 
         case 17:
-          cart = _context3.sent;
+          data = _context3.sent;
+          cart = data[0];
           console.log(cart);
           return _context3.abrupt("return", res.status(201).send({
             authorized: isMatch,
@@ -220,21 +173,21 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
             cart: cart
           }));
 
-        case 22:
+        case 23:
           if (!(user[0].role === "admin")) {
-            _context3.next = 32;
+            _context3.next = 33;
             break;
           }
 
-          _context3.next = 25;
+          _context3.next = 26;
           return regeneratorRuntime.awrap((0, _db.getStoreById)(user[0].storeId));
 
-        case 25:
+        case 26:
           storeData = _context3.sent;
-          _context3.next = 28;
+          _context3.next = 29;
           return regeneratorRuntime.awrap((0, _db.getStoreProducts)(user[0].storeId));
 
-        case 28:
+        case 29:
           productData = _context3.sent;
           return _context3.abrupt("return", res.status(201).send({
             authorized: isMatch,
@@ -244,29 +197,29 @@ app.post("/api/login", (0, _cors["default"])(), function _callee3(req, res) {
             token: token
           }));
 
-        case 32:
+        case 33:
           return _context3.abrupt("return", res.status(404).send({
             authorized: false
           }));
 
-        case 33:
-          _context3.next = 39;
+        case 34:
+          _context3.next = 40;
           break;
 
-        case 35:
-          _context3.prev = 35;
+        case 36:
+          _context3.prev = 36;
           _context3.t0 = _context3["catch"](2);
           console.error(_context3.t0.message);
           res.status(500).send({
             error: "Error logging in"
           });
 
-        case 39:
+        case 40:
         case "end":
           return _context3.stop();
       }
     }
-  }, null, null, [[2, 35]]);
+  }, null, null, [[2, 36]]);
 });
 app.post("/api/user", (0, _cors["default"])(), function _callee5(req, res) {
   var userData, id, storeId, name, storeData, cartData, saltRounds, plainPassword;
@@ -610,7 +563,9 @@ app.post("/api/cart/additem", (0, _cors["default"])(), function _callee12(req, r
 
         case 5:
           cart = _context12.sent;
-          res.status(200).json(cart);
+          res.status(200).send({
+            cart: cart
+          });
           _context12.next = 13;
           break;
 
@@ -623,6 +578,39 @@ app.post("/api/cart/additem", (0, _cors["default"])(), function _callee12(req, r
         case 13:
         case "end":
           return _context12.stop();
+      }
+    }
+  }, null, null, [[2, 9]]);
+});
+app.post("/api/cart/deleteitem", (0, _cors["default"])(), function _callee13(req, res) {
+  var cartId, productId, cart;
+  return regeneratorRuntime.async(function _callee13$(_context13) {
+    while (1) {
+      switch (_context13.prev = _context13.next) {
+        case 0:
+          cartId = req.body.cartId;
+          productId = req.body.productId;
+          _context13.prev = 2;
+          _context13.next = 5;
+          return regeneratorRuntime.awrap((0, _db.deleteItemFromCart)(cartId, productId));
+
+        case 5:
+          cart = _context13.sent;
+          res.status(200).send({
+            cart: cart
+          });
+          _context13.next = 13;
+          break;
+
+        case 9:
+          _context13.prev = 9;
+          _context13.t0 = _context13["catch"](2);
+          console.error(_context13.t0);
+          res.status(500).send("Server Error");
+
+        case 13:
+        case "end":
+          return _context13.stop();
       }
     }
   }, null, null, [[2, 9]]);

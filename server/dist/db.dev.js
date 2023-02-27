@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addItemToCart = exports.getCart = exports.createCart = exports.addProduct = exports.getProducts = exports.getStoreProducts = exports.addStore = exports.getStoreById = exports.getStores = exports.addUser = exports.getUserByEmail = exports.getUserById = exports.getUsers = void 0;
+exports.deleteItemFromCart = exports.addItemToCart = exports.getCart = exports.createCart = exports.addProduct = exports.getProducts = exports.getStoreProducts = exports.addStore = exports.getStoreById = exports.getStores = exports.addUser = exports.getUserByEmail = exports.getUserById = exports.getUsers = void 0;
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -482,34 +482,12 @@ var getCart = function getCart(id) {
       }
     }
   }, null, null, [[0, 11]]);
-}; // export const  addItemToCart = async (userId, productId) => {
-//   try {
-//     const db = await connectToDb();
-//     const cartCollection = db.collection('cart');
-//     const cart = await cartCollection.find({cartId: userId}).toArray();
-//     const productCollection = db.collection('newProducts');
-//     const product = await productCollection.find({productId: productId}).toArray();
-//     const existingItem = cart.items.find(item => item.productId === productId);
-//     if (existingItem) {
-//       existingItem.quantity++;
-//     } else {
-//       cart.items.push(product);
-//     }
-//     cart.totalItems = cart.items.length;
-//     cart.totalAmount += product.price;
-//     await cart.save();
-//     return cart;
-//   } catch (err) {
-//     console.error(err);
-//     throw new Error('Could not add item to cart');
-//   }
-// }
-
+};
 
 exports.getCart = getCart;
 
 var addItemToCart = function addItemToCart(userId, productId) {
-  var db, cartCollection, cart, productCollection, product, existingItem;
+  var db, cartCollection, cart, productCollection, product;
   return regeneratorRuntime.async(function addItemToCart$(_context14) {
     while (1) {
       switch (_context14.prev = _context14.next) {
@@ -536,17 +514,17 @@ var addItemToCart = function addItemToCart(userId, productId) {
 
         case 11:
           product = _context14.sent;
-          console.log(product);
-          existingItem = cart.items.find(function (item) {
-            return item.productId === productId;
-          });
+          _context14.next = 14;
+          return regeneratorRuntime.awrap(productCollection.updateOne({
+            productId: productId
+          }, {
+            $inc: {
+              quantity: -1
+            }
+          }));
 
-          if (existingItem) {
-            existingItem.quantity++;
-          } else {
-            cart.items.push(product);
-          }
-
+        case 14:
+          cart.items.push(product);
           cart.totalItems = cart.items.length;
           cart.totalAmount += product.price;
           _context14.next = 19;
@@ -574,3 +552,80 @@ var addItemToCart = function addItemToCart(userId, productId) {
 };
 
 exports.addItemToCart = addItemToCart;
+
+var deleteItemFromCart = function deleteItemFromCart(cartId, productId) {
+  var db, cartCollection, cart, itemIndex, deletedItem, productCollection;
+  return regeneratorRuntime.async(function deleteItemFromCart$(_context15) {
+    while (1) {
+      switch (_context15.prev = _context15.next) {
+        case 0:
+          _context15.prev = 0;
+          _context15.next = 3;
+          return regeneratorRuntime.awrap(connectToDb());
+
+        case 3:
+          db = _context15.sent;
+          cartCollection = db.collection('cart');
+          _context15.next = 7;
+          return regeneratorRuntime.awrap(cartCollection.findOne({
+            cartId: cartId
+          }));
+
+        case 7:
+          cart = _context15.sent;
+          itemIndex = cart.items.indexOf(cart.items.find(function (item) {
+            return item.productId === productId;
+          }));
+          console.log(itemIndex);
+
+          if (!(itemIndex >= 0)) {
+            _context15.next = 22;
+            break;
+          }
+
+          deletedItem = cart.items.splice(itemIndex, 1)[0];
+          cart.totalItems = cart.items.length;
+          cart.totalAmount -= deletedItem.price;
+          _context15.next = 16;
+          return regeneratorRuntime.awrap(cartCollection.updateOne({
+            cartId: cartId
+          }, {
+            $set: cart
+          }));
+
+        case 16:
+          productCollection = db.collection('newProducts');
+          _context15.next = 19;
+          return regeneratorRuntime.awrap(productCollection.updateOne({
+            productId: productId
+          }, {
+            $inc: {
+              quantity: +1
+            }
+          }));
+
+        case 19:
+          return _context15.abrupt("return", cart);
+
+        case 22:
+          throw new Error('Item not found in cart');
+
+        case 23:
+          _context15.next = 29;
+          break;
+
+        case 25:
+          _context15.prev = 25;
+          _context15.t0 = _context15["catch"](0);
+          console.error(_context15.t0);
+          throw new Error('Could not delete item from cart');
+
+        case 29:
+        case "end":
+          return _context15.stop();
+      }
+    }
+  }, null, null, [[0, 25]]);
+};
+
+exports.deleteItemFromCart = deleteItemFromCart;

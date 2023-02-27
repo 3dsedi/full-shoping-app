@@ -7,13 +7,13 @@ const StoreProduct = (product) => {
     <article className={"product_item product"}>
         <section className={"text_section"}>
             <h3>
-                {product.product.title}
+                 Title: {product.product.title}
             </h3>
         </section>
         <img src={product.product.imageUrl} alt={"picture of product"}/>
         <div>
-        <h5>{product.product.quantity}</h5>
-        <h4>{product.product.price}</h4>
+        <h5>Quantity: {product.product.quantity}</h5>
+        <h4>Price: ${product.product.price}</h4>
 
         </div>
     </article>

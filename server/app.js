@@ -14,7 +14,8 @@ import {
   addProduct, 
   createCart,
   getCart,
-  addItemToCart
+  addItemToCart,
+  deleteItemFromCart
 } from "./db.js";
 import { getProducts } from "./db.js";
 
@@ -72,57 +73,6 @@ app.get("/api/user/:id", cors(), async (req, res) => {
   }
 });
 
-// app.post("/api/user/login", cors(), async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   try {
-//     const user = await getUserByEmail(email);
-//     if (!user) {
-//       return res.status(404).send({ error: "no user found" });
-//     }
-//     const isMatch = await bcrypt.compare(password, user[0].password);
-//     if (!isMatch) {
-//       return res.status(404).send({ authorized: false });
-//     }
-//     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
-//     return res
-//       .status(201)
-//       .send({ authorized: isMatch, user: user[0], token: token });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send({ error: "Error logging in" });
-//   }
-// });
-// app.post("/api/admin/login", cors(), async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   try {
-//     const user = await getUserByEmail(email);
-//     if (!user) {
-//       return res.status(404).send({ error: "no user found" });
-//     }
-//     const isMatch = await bcrypt.compare(password, user[0].password);
-//     if (!isMatch) {
-//       return res.status(404).send({ authorized: false });
-//     }
-//     let storeData = {};
-//     let productData = [];
-
-//     if (user[0].role === "admin") {
-//       storeData = await getStoreById(user[0].storeId);
-//       productData = await getStoreProducts(user[0].storeId);
-//     }
-
-//     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
-//     return res
-//       .status(201)
-//       .send({ authorized: isMatch, user: user[0], storeData: storeData, productData: productData,token: token });
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send({ error: "Error logging in" });
-//   }
-// });
-
 app.post("/api/login", cors(), async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -139,7 +89,8 @@ app.post("/api/login", cors(), async (req, res) => {
     const token = jwt.sign({ id: user[0].id }, process.env.JWT_SECRET);
 
     if (user[0].role === "user") {
-      const cart = await getCart (user[0].id)
+      const data = await getCart (user[0].id)
+      const cart = data[0]
       console.log(cart)
       return res.status(201).send({ authorized: isMatch, user: user[0], token: token, cart: cart });
     } else if (user[0].role === "admin") {
@@ -316,9 +267,21 @@ app.post("/api/cart/additem",cors(), async (req, res) => {
   const productId = req.body.productId
   try {
     const cart = await addItemToCart(userId, productId);
-    res.status(200).json(cart);
+    res.status(200).send({cart: cart});
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
+  }
+});
+
+app.post("/api/cart/deleteitem", cors(), async (req, res) => {
+  const cartId = req.body.cartId;
+  const productId = req.body.productId;
+  try {
+    const cart = await deleteItemFromCart(cartId, productId);
+    res.status(200).send({ cart: cart });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });

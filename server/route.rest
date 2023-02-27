@@ -1,9 +1,9 @@
 
-
- POST  http://localhost:3001/api/cart/additem
+ POST  http://localhost:3001/api/cart/deleteitem
 Content-Type: application/json
 
 {
-    "userId" : "u_1677082687408",
-    "productId" : "Vj1qeQqU"
+    "cartId" : "u_1677254664366",
+    "productId" : "14cd ..
+    "
  }

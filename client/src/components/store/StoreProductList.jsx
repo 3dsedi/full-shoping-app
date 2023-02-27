@@ -31,7 +31,7 @@ console.log(storeData)
 
   return (
     <div>
-      <h2>{storeData[0].name}</h2>
+      <h2>{storeData[0].storeName}</h2>
       <div>
         <label>Sort by:</label>
         <select onChange={(event) => sortProducts(event.target.value)}>
