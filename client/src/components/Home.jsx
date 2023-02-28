@@ -3,6 +3,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Home.css'
+import yek from '../pics/1.jpg'
+import second from '../pics/2.jpg'
+import third from '../pics/3.jpg'
+import fourth from '../pics/4.jpg'
+import fifth from '../pics/5.jpg'
+import sixth from '../pics/6.jpg'
+import seventh from '../pics/7.jpg'
+
 
 const Home = () => {
   const settings = {
@@ -19,22 +27,25 @@ const Home = () => {
     <div className="slider-container">
       <Slider {...settings}>
         <div>
-          <img src="../pics/1.jpg" alt="Image 1" />
+          <img src={yek} alt="Image 1" />
         </div>
         <div>
-          <img src="https://i.ibb.co/4gyyHZq/27cdecf26ec2ba0e73fc28ff73b955deed67db07-1677068552.jpg" alt="Image 2" />
+          <img src={second} alt="Image 2" />
         </div>
         <div>
-          <img src="https://i.ibb.co/Nrh2dHv/6a45272b7e841c93f80c3c075ed210db4288180f-1677415939.jpg" alt="Image 3" />
+          <img src={third} alt="Image 3" />
         </div>
         <div>
-          <img src="https://i.ibb.co/8NRLML1/4dc241fe8ad0bcd85d606cfcdebdcefdaa50e2cf-1677416219.jpg" alt="Image 4" />
+          <img src={fourth} alt="Image 4" />
         </div>
         <div>
-          <img src="https://i.ibb.co/Tc0DvRd/85d92c64e0eacc4fc17b7e5dd8d4f8cd71e4cc35-1677060885.jpg" alt="Image 5" />
+          <img src={fifth} alt="Image 5" />
         </div>
         <div>
-          <img src="https://i.ibb.co/5KHhXG8/593a086075947974cfb75dcd8a1d133d065e9e28-1677425692.jpg" alt="Image 6" />
+          <img src={sixth} alt="Image 6" />
+        </div>
+        <div>
+          <img src={seventh} alt="Image 7" />
         </div>
       </Slider>
     </div>

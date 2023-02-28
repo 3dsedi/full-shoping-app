@@ -1,63 +1,92 @@
-import Product from './Product.jsx';
-// import "../../App.css"
-import './ProductList.css'
-import CategorySorter from "./CategorySorter.jsx";
-import { useRef , useState} from 'react';
-import { Pagination } from './Pagination.jsx';
+import Product from "./Product.jsx";
+import fashion from "./k1-copy.jpg";
+import art from "./art.jpg";
+import kids from "./kids.jpg";
+import sport from "./sport.jpg";
+import tech from "./tech.jpg";
+import home from "./home.jpg";
+import "./ProductList.css";
+import { useState } from "react";
+import { Pagination } from "./Pagination.jsx";
 
 const sorted = false;
 
-
-function ProductList({products, userData, addToCart}) {
-    const [filteredData, setFilteredData] = useState();
-    const [isAll, setIsAll] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
+function ProductList({ products, userData, addToCart }) {
+  const [filteredData, setFilteredData] = useState();
+  const [isAll, setIsAll] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(9);
 
-    const categoryRef = useRef()
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = isAll
+    ? products.slice(indexOfFirstItem, indexOfLastItem)
+    : filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = isAll ? 
-      products.slice(indexOfFirstItem, indexOfLastItem) :
-      filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-      const paginate = pageNumber => setCurrentPage(pageNumber);
+  const FashionHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Fashion"));
+  };
 
-    const FilterHandler = (event) => {
-        const selected =  categoryRef.current?.value;
-        if (selected === "ALL") {
-          setIsAll(true);
-        } else {
-          setIsAll(false);
-          setFilteredData(
-            products.filter((item) => item.category  === selected)
-          );
-        }
-      };
+  const ArtHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Art"));
+  };
+  const KidsHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Kids"));
+  };
+  const SportHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Sport"));
+  };
+  const TechHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Tech"));
+  };
+  const HomeHandler = () => {
+    setIsAll(false);
+    setFilteredData(products.filter((item) => item.category === "Home"));
+  };
 
-      return (
-<article className="product_list">
-          <form className='product_list_form' >
-            <label className='product_list_lable'>Category</label>
-            <select
-            className='product_list_select'
-              ref={categoryRef}
-              defaultValue="select"
-              onChange={FilterHandler}
-            >
-              <option value="ALL">ALL</option>
-              <option value="Art">Art</option>
-              <option value="Sport">Sport</option>
-              <option value="Fashion">Fashion</option>
-              <option value="Kids">Kids</option>
-              <option value="Home">Home</option>
-              <option value="Tech">Tech</option>
-            </select>
-          </form>
-            <main className='product_list_main'>
+  return (
+    <article className="product_list">
+      <div className="product_list_images">
+        <div>
+        <img src={fashion} alt="Fashion" onClick={FashionHandler} />
+        <h6>Fashion & Beauty</h6>
+        </div>
+        <div>
+        <img src={art} alt="art" onClick={ArtHandler} />
+        <h6>Hand Made</h6>
+        </div>
+        <div>
+        <img src={kids} alt="Fashion" onClick={KidsHandler} />
+        <h6>Kids</h6>
+        </div>
+        <div>
+        <img src={sport} alt="Fashion" onClick={SportHandler} />
+        <h6>Sport</h6>
+        </div>
+        <div>
+        <img src={tech} alt="Fashion" onClick={TechHandler} />
+        <h6>Tech Product</h6>
+        </div>
+        <div>
+        <img src={home} alt="Fashion" onClick={HomeHandler} />
+        <h6>Home Apliences</h6>
+        </div>
+      </div>
+      <main className="product_list_main">
         {currentItems?.map((p, index) => (
-          <Product key={index} product={p} userData={userData} addToCart={addToCart} />
+          <Product
+            key={index}
+            product={p}
+            userData={userData}
+            addToCart={addToCart}
+          />
         ))}
       </main>
       <Pagination
@@ -65,14 +94,8 @@ function ProductList({products, userData, addToCart}) {
         totalItems={isAll ? products.length : filteredData.length}
         paginate={paginate}
       />
-        </article>
-      )}
-
-
-
-
-
-      
-
+    </article>
+  );
+}
 
 export default ProductList;

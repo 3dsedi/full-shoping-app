@@ -22,3 +22,14 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+.product_list_images {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product_list_images img {
+  width: 20%;
+  height: auto;
+}
