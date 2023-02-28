@@ -1,0 +1,91 @@
+.navbar-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #55c57a;
+    padding: 0.5rem 1rem;
+    height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .navbar__adv {
+    width: 100%;
+    height: auto;
+  }
+  .navbar__logo {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .navbar__logo svg {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(112, 111, 111);
+    align-items: center;
+  }
+  
+  .navbar__menu {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar__item {
+    margin: 0 1rem;
+    list-style: none; 
+  }
+  
+  .navbar__link {
+    font-size: 1.3rem;
+    color: #fff;
+    text-decoration: none;
+
+  }
+  
+  .navbar__link:hover {
+    color: #000;
+  }
+  
+  .navbar__list {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar__list-left {
+    margin-right: auto;
+  }
+  
+  .navbar__list-right {
+    margin-left: auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    .navbar__link {
+      font-size: 0.5rem;
+    }
+    .navbar__logo svg {
+      font-size: 0.5rem;
+      
+    }
+  }
+  
+  @media screen and (max-width: 1024px) {
+    .navbar__link {
+      font-size: 0.7rem;
+    }
+    .navbar__logo svg {
+      font-size: 1rem;
+      
+    }
+  }
+
+ 

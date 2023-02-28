@@ -1,13 +1,11 @@
 import "./App.css";
 import { useState, useEffect } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav } from 'react-bootstrap';
 
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { fakecart } from "./fakedata/fakecart.js";
+// import { fakecart } from "./fakedata/fakecart.js";
 import NavBar from "./components/Navbar.jsx";
 import Cart from "./components/checkout/Cart.jsx";
 import AdminPage from "./admin/AdminPage.jsx";
@@ -26,10 +24,10 @@ function removeFromCart(productId) {
   //remove item from the current Cart
 }
 
-function getCurrentCart() {
-  return fakecart;
-  //update to get from localstorage
-}
+// function getCurrentCart() {
+//   return fakecart;
+//   //update to get from localstorage
+// }
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -186,14 +184,10 @@ function App() {
   return (
     <div>
       <Router>
-      <Nav className={className}>
-    <div className="container-fluid">
-      <NavBar
-        userData={userData}
-        className="navbar navbar-expand-lg navbar-dark bg-primary"
-      />
-      </div>
-      </Nav>
+          <div >
+            <NavBar userData={userData} />
+          </div>
+
         {/* <ProfileBar userData={userData}/> */}
 
         <Routes>

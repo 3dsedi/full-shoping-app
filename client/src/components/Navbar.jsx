@@ -1,55 +1,65 @@
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { IconButton } from "@mui/material"
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LocalAtmRoundedIcon from "@mui/icons-material/LocalAtmRounded";
+import "./Navbar.css";
 
 function NavBar({ userData }) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link to="/" className="navbar-brand">My E-commerce Site</Link>
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to="/products" className="nav-link">Products</Link>
+    <div className="navbar-container">
+     <img src="https://i.ibb.co/BLKmJSP/71-Mo6eb-Y83-L-SL1500.jpg" alt="logo" className='navbar__adv'/>
+<nav className="navbar">
+  <ul className="navbar__list navbar__list-left">
+    <div className="navbar__logo">
+      <Link to="/">
+      <IconButton>
+        <HomeOutlinedIcon style={{ color: "white", fontSize: "2rem"  }}  />
+        </IconButton>
+      </Link>
+    </div>
+  </ul>
+  <ul className="navbar__list navbar__list-right">
+    {userData.length === 0 ? (
+      <>
+        <li className="navbar__item">
+          <Link to="/login" className="navbar__link">
+            Login
+          </Link>
+        </li>
+        <li className="navbar__item">
+          <Link to="/create-new-user" className="navbar__link">
+            Sign up
+          </Link>
+        </li>
+      </>
+    ) : (
+      <>
+        {userData.role === "user" && (
+          <li className="navbar__item">
+            <Link to="/cart" className="navbar__link">
+              <ShoppingCartIcon />
+            </Link>
           </li>
-        </ul>
-        {userData.length > 0 && (
-          <ul className="navbar-nav">
-            {userData.role === 'user' ? (
-              <>
-                <li className="nav-item">
-                  <Link to="/cart" className="nav-link">Cart</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/logout" className="nav-link">Logout</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li className="nav-item">
-                  <Link to="/cashier" className="nav-link">Cashier</Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/logout" className="nav-link">Logout</Link>
-                </li>
-              </>
-            )}
-          </ul>
         )}
-        {userData.length === 0 && (
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">Login</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/create-new-user" className="nav-link">Sign up</Link>
-            </li>
-          </ul>
+        {userData.role === "cashier" && (
+          <li className="navbar__item">
+            <Link to="/cashier" className="navbar__link">
+              <LocalAtmRoundedIcon />
+            </Link>
+          </li>
         )}
-      </div>
-    </nav>
-  );
+        <li className="navbar__item">
+          <Link to="/logout" className="navbar__link">
+            Logout
+          </Link>
+        </li>
+      </>
+    )}
+  </ul>
+</nav>
+</div>
+ );
 }
 
 export default NavBar;

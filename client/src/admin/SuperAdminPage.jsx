@@ -1,5 +1,5 @@
 import StoreOverview from "./StoreOverview.jsx";
-import {allStores} from "../fakedata/fakeStores.js";
+// import {allStores} from "../fakedata/fakeStores.js";
 import AddStoreForm from "./AddStoreForm.jsx";
 
 function SuperAdminPage() {
@@ -11,9 +11,7 @@ function SuperAdminPage() {
             </header>
             <AddStoreForm/>
             {
-                allStores.map(s => {
-                    return <StoreOverview storeInfo={s}/>
-                })
+                
             }
 
         </>
