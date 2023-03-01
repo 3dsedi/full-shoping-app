@@ -15,3 +15,22 @@
     height: 130px
   }
 }
+.addvertized_stores {
+  display: flex; 
+  margin-left: 0px;
+  /* justify-content: space-between;  */
+  align-items: center;
+  padding-right: 10px;
+  padding-top: 30px; 
+}
+
+.addvertized_stores img {
+  width: 24.7%; 
+  height: 200px; 
+  margin-right: 8px;
+  border-radius: 12px;
+}
+
+.addvertized_stores img:last-child {
+  padding-right: 0px; 
+}

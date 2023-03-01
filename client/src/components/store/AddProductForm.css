@@ -1,0 +1,115 @@
+.create_product_form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .create_product_form label {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .create_product_form input {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: -10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: sa;
+
+  }
+  .create_product_form select{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: sa;
+  }
+  .create_product_form textarea {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 0px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 0px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: sa;
+    
+  }
+  
+  .create_product_form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-left: -15px;
+    width: 100%;
+    cursor: pointer;
+    margin-left: 3px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create_product_form button:hover {
+    background-color: #03468d;
+  }
+  
+  .create_product_form input[type="file"] {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 0px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: sa;
+  }
+  .product_quantity{
+    color: rgb(92, 92, 92);
+    font-family: sa;
+    font-size: 15px;
+  }
+  input.product_quantity{
+    color: rgb(92, 92, 92);
+    font-family: sa;
+    font-size: 15px;
+    height: 20px;
+  }
+
+.form__input {
+    display: none;
+  }
+  
+ 
+  .product_img_upload {
+    color: rgb(92, 92, 92);
+    font-family: sa;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+  .product_img_upload:before {
+    content: '+';
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  .new_product_p{
+    color: rgb(92, 92, 92);
+    font-family: sa;
+    font-size: 25px;
+}
+.back_button {
+  margin-top: 20px;
+  margin-left: -500px;
+}

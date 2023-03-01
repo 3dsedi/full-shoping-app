@@ -361,27 +361,27 @@ app.get("/api/store", (0, _cors["default"])(), function _callee6(req, res) {
   }, null, null, [[0, 7]]);
 });
 app.get("/api/store/:id", (0, _cors["default"])(), function _callee7(req, res) {
-  var store;
+  var products;
   return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
       switch (_context7.prev = _context7.next) {
         case 0:
           _context7.prev = 0;
           _context7.next = 3;
-          return regeneratorRuntime.awrap((0, _db.getStoreById)(req.params.id));
+          return regeneratorRuntime.awrap((0, _db.getStoreProducts)(req.params.id));
 
         case 3:
-          store = _context7.sent;
+          products = _context7.sent;
 
-          if (store) {
+          if (!(!products || products.length === 0)) {
             _context7.next = 6;
             break;
           }
 
-          return _context7.abrupt("return", res.status(404).send("store not found"));
+          return _context7.abrupt("return", res.status(404).send("Products not found for store"));
 
         case 6:
-          res.json(store);
+          res.json(products);
           _context7.next = 13;
           break;
 
@@ -512,7 +512,7 @@ app.post("/api/product", (0, _cors["default"])(), function _callee11(req, res) {
         case 0:
           productData = {
             title: req.body.title,
-            dscdescription: req.body.dscdescription,
+            description: req.body.description,
             imageUrl: req.body.imageUrl,
             price: req.body.price,
             quantity: req.body.quantity,

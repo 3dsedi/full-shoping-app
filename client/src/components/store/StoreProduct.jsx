@@ -1,24 +1,20 @@
-import React from 'react'
+import React from "react";
+import "./StoreProduct.css";
 
 const StoreProduct = (product) => {
-    console.log(product.product.price)
+  console.log(product.product.price);
   return (
-    <>
-    <article className={"product_item product"}>
-        <section className={"text_section"}>
-            <h3>
-                 Title: {product.product.title}
-            </h3>
-        </section>
-        <img src={product.product.imageUrl} alt={"picture of product"}/>
-        <div>
-        <h5>Quantity: {product.product.quantity}</h5>
-        <h4>Price: ${product.product.price}</h4>
+    <div className={"store_product_container"}>
+      <p className="store_product_title">{product.product.title} </p>
+      <img src={product.product.imageUrl} alt={"picture of product"} />
+      <div>
+      <p className={`store_product_quantity ${product.product.quantity > 10 ? 'more-than-10' : 'less-than-10'}`}>
+      {product.product.quantity} in stock
+    </p>
+        <p className="store_product_price"> ${product.product.price}</p>
+      </div>
+    </div>
+  );
+};
 
-        </div>
-    </article>
-</>
-  )
-}
-
-export default StoreProduct
+export default StoreProduct;

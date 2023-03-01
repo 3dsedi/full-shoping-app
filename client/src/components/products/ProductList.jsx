@@ -56,30 +56,31 @@ function ProductList({ products, userData, addToCart }) {
       <div className="product_list_images">
         <div>
         <img src={fashion} alt="Fashion" onClick={FashionHandler} />
-        <h6>Fashion & Beauty</h6>
+        <p>Fashion & Beauty</p>
         </div>
         <div>
         <img src={art} alt="art" onClick={ArtHandler} />
-        <h6>Hand Made</h6>
+        <p>Hand Made</p>
         </div>
         <div>
         <img src={kids} alt="Fashion" onClick={KidsHandler} />
-        <h6>Kids</h6>
+        <p>Kids</p>
         </div>
         <div>
         <img src={sport} alt="Fashion" onClick={SportHandler} />
-        <h6>Sport</h6>
+        <p>Sport</p>
         </div>
         <div>
         <img src={tech} alt="Fashion" onClick={TechHandler} />
-        <h6>Tech Product</h6>
+        <p>Tech Product</p>
         </div>
         <div>
         <img src={home} alt="Fashion" onClick={HomeHandler} />
-        <h6>Home Apliences</h6>
+        <p>Home Apliences</p>
         </div>
       </div>
-      <main className="product_list_main">
+      {/* <main className="product_list_main"> */}
+      <main>
         {currentItems?.map((p, index) => (
           <Product
             key={index}

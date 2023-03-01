@@ -17,7 +17,7 @@
 
   .navbar__adv {
     width: 100%;
-    height: auto;
+    height: 100px;
   }
   .navbar__logo {
     display: flex;

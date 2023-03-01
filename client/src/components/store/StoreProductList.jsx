@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import StoreProduct from "./StoreProduct";
 import { Link} from 'react-router-dom';
+import './StoreProductList.css'
 
 function StoreProductList({ storeData, storeProducts, addNewProduct  }) {
   const [filteredProducts, setFilteredProducts] = useState(storeProducts);
@@ -31,8 +32,9 @@ console.log(storeData)
 
   return (
     <div>
-      <h2>{storeData[0].storeName}</h2>
-      <div>
+    <div className="store-container">
+      <p className="store_product_p">{storeData[0].storeName} Store</p>
+      <div className="store-controls">
         <label>Sort by:</label>
         <select onChange={(event) => sortProducts(event.target.value)}>
           <option value="default">Default</option>
@@ -41,15 +43,16 @@ console.log(storeData)
           <option value="date-new-to-old">Date: New to Old</option>
           <option value="date-old-to-new">Date: Old to New</option>
         </select>
-        <li>
+        <li class="no-bullet">
         <Link to="/create-new-product">Add new Product</Link>
       </li>
+      </div>
       </div>
       <div>
         {filteredProducts.map((product , index) => (
           <StoreProduct key={index} product={product} />
         ))}
-      </div>
+    </div>
     </div>
   );
 }

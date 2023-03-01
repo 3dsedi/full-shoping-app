@@ -1,0 +1,70 @@
+.create_user_form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.create_user_form label {
+    display: block;
+    margin-top: 10px;
+}
+
+.create_user_form input {
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: sa;
+}
+
+.create_user_form div {
+    margin-top: 10px;
+}
+
+.create_user_form button.submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    margin-left: -15px;
+    width: 95%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create_user_form button.submit:hover {
+    background-color: #03468d;
+}
+
+.signup_p {
+    color: rgb(92, 92, 92);
+    font-family: sa;
+    font-size: 25px;
+}
+
+.signip_check_box {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+   
+}
+.check_box_lable{
+    font-family: sa;
+    font-size: 15px;
+    color: rgb(92, 92, 92);
+    margin-bottom: 20px;
+}
+input.check_box_input{
+    background-color: aqua;
+    width: 30px;
+    margin-left: 80px;
+    margin-bottom: 1rem;
+}

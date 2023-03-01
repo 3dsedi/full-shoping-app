@@ -127,6 +127,7 @@ const connectToDb = async () => {
       console.error(err.message);
     }
   };
+  
   export  const addProduct= async (productData)=> {
     try {
      const db = await connectToDb();

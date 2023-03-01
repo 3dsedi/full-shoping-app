@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './LoginForm.css';
 
 
 
@@ -28,12 +29,12 @@ function LoginForm({onLogin}) {
   
   return (
       <>
-        <h3>Login</h3>
-        <form onSubmit={userLoginHandler} className={"login_form"}>
-          <label htmlFor="email_input">Email</label>
+        <p className='login_form_p'>Login</p>
+        <form onSubmit={userLoginHandler} className={"login_form"} >
+          {/* <label htmlFor="email_input">Email</label> */}
           <input placeholder={"email"} id={"email_input"} ref={emailRef}/>
           <br/>
-          <label htmlFor="password_input">Password</label>
+          {/* <label htmlFor="password_input">Password</label> */}
           <input placeholder={"password"} id={"password_input"} ref={passRef}/>
           <br/>
           <input type={'submit'}/>

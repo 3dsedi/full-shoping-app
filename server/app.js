@@ -182,11 +182,11 @@ app.get("/api/store", cors(), async (req, res) => {
 
 app.get("/api/store/:id", cors(), async (req, res) => {
   try {
-    const store = await getStoreById(req.params.id);
-    if (!store) {
-      return res.status(404).send("store not found");
+    const products = await getStoreProducts(req.params.id);
+    if (!products || products.length === 0) {
+      return res.status(404).send("Products not found for store");
     }
-    res.json(store);
+    res.json(products);
   } catch (err) {
     console.error(err.message);
     res
@@ -240,7 +240,7 @@ app.get("/api/product", cors(), async (req, res) => {
 app.post("/api/product", cors(), async (req, res) => {
   const productData = {
     title: req.body.title,
-    dscdescription: req.body.dscdescription,
+    description: req.body.description,
     imageUrl: req.body.imageUrl,
     price: req.body.price,
     quantity: req.body.quantity,

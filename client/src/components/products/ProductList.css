@@ -17,11 +17,11 @@
   border-radius: 0.25rem;
   border: 1px solid #ccc;
 }
-.product_list_main{
+/* .product_list_main{
     display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
+} */
 
 .product_list_images {
   display: flex;
@@ -30,6 +30,7 @@
 }
 
 .product_list_images img {
-  width: 20%;
+  background-color: blue;
+  width: 100%;
   height: auto;
 }

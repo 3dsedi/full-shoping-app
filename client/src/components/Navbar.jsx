@@ -3,12 +3,13 @@ import { IconButton } from "@mui/material"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalAtmRoundedIcon from "@mui/icons-material/LocalAtmRounded";
+import kitkat from '../pics/kitkat.jpg'
 import "./Navbar.css";
 
 function NavBar({ userData }) {
   return (
     <div className="navbar-container">
-     <img src="https://i.ibb.co/BLKmJSP/71-Mo6eb-Y83-L-SL1500.jpg" alt="logo" className='navbar__adv'/>
+     <img src={kitkat} alt="logo" className='navbar__adv'/>
 <nav className="navbar">
   <ul className="navbar__list navbar__list-left">
     <div className="navbar__logo">

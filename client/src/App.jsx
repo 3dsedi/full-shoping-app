@@ -1,11 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// import { fakecart } from "./fakedata/fakecart.js";
 import NavBar from "./components/Navbar.jsx";
 import Cart from "./components/checkout/Cart.jsx";
 import AdminPage from "./admin/AdminPage.jsx";
@@ -18,19 +15,11 @@ import StoreProductList from "./components/store/StoreProductList.jsx";
 import Cashior from "./components/store/Cashior.jsx";
 import AddProductForm from "./components/store/AddProductForm.jsx";
 import Home from "./components/Home";
-
-function removeFromCart(productId) {
-  console.log("Remove " + productId + " From the App");
-  //remove item from the current Cart
-}
-
-// function getCurrentCart() {
-//   return fakecart;
-//   //update to get from localstorage
-// }
+import SelectedStore from "./components/SelectedStore";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [stores, setStores] = useState([]);
   const [error, setError] = useState(null);
   const [storeData, setStoreData] = useState({});
   const [storeProducts, setStoreProducts] = useState([]);
@@ -66,6 +55,19 @@ function App() {
       console.error(error);
     }
   };
+  const fetchStores = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/store");
+      const store = await response.json();
+      console.log(store);
+      setStores(store);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  useEffect(() => {
+    fetchStores();
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -150,7 +152,7 @@ function App() {
   const addProduct = async (newProduct) => {
     const {
       title,
-      dscdescription,
+      description,
       imageUrl,
       price,
       quantity,
@@ -159,7 +161,7 @@ function App() {
     } = newProduct;
     const reqBody = {
       title,
-      dscdescription,
+      description,
       imageUrl,
       price,
       quantity,
@@ -184,16 +186,33 @@ function App() {
   return (
     <div>
       <Router>
-          <div >
-            <NavBar userData={userData} />
-          </div>
+        <div>
+          <NavBar userData={userData} />
+        </div>
 
         {/* <ProfileBar userData={userData}/> */}
 
         <Routes>
-          <Route exact path="/" element={<Home />}>
+          <Route
+            exact
+            path="/"
+            element={
+              <Home stores={stores} userData={userData} addToCart={addToCart} products={products} />
+            }
+          >
             {" "}
           </Route>
+          <Route
+            path="/store/:storeId"
+            render={({ match }) => (
+              <SelectedStore
+                storeId={match.params.storeId}
+                addToCart={addToCart}
+                userData={userData}
+              />
+            )}
+          />
+          {/* <Route path="/store/:storeId" element={<SelectedStore/>} /> */}
           <Route
             path="/login"
             element={<LoginForm onLogin={authorizeUser} />}
