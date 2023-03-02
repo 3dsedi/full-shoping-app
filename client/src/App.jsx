@@ -8,6 +8,7 @@ import Cart from "./components/checkout/Cart.jsx";
 import AdminPage from "./admin/AdminPage.jsx";
 import ProfileBar from "./components/ProfileBar.jsx";
 import ProductList from "./components/Products/ProductList.jsx";
+import ProductDetail from "./components/Products/ProductDetail.jsx";
 import LoginForm from "./components/login/LoginForm.jsx";
 import NewUserForm from "./components/login/NewUserForm.jsx";
 import SuperAdminPage from "./admin/SuperAdminPage.jsx";
@@ -227,6 +228,7 @@ function App() {
               />
             }
           ></Route>
+            <Route path="/product/:id" element={<ProductDetail products={products} stores={stores}/>} />
           <Route
             path="/store"
             element={

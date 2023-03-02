@@ -4,7 +4,7 @@ function Product({ product, addToCart, userData }) {
   const productId = product.productId;
   const userId = userData.id;
   return (
-    <article className={"product_container"}>
+    <div className={"product_container"}>
       <p className="product_title">{product.title} </p>
       <img src={product.imageUrl} alt={"picture of product"} />
       <div>
@@ -12,9 +12,9 @@ function Product({ product, addToCart, userData }) {
       {product.quantity} in stock
     </p>
     <p className="product_price"> ${product.price}</p>
-      <button onClick={() => addToCart(userId, productId)}>Add to Cart</button>
+      <button className="add_to_cart" onClick={() => addToCart(userId, productId)}>Add to Cart</button>
       </div>
-    </article>
+    </div>
   );
 }
 

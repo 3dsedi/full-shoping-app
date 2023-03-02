@@ -2,7 +2,6 @@ import React from "react";
 import "./StoreProduct.css";
 
 const StoreProduct = (product) => {
-  console.log(product.product.price);
   return (
     <div className={"store_product_container"}>
       <p className="store_product_title">{product.product.title} </p>
