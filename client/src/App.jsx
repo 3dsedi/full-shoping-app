@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavBar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 import Cart from "./components/checkout/Cart.jsx";
 import AdminPage from "./admin/AdminPage.jsx";
 import ProfileBar from "./components/ProfileBar.jsx";
@@ -187,12 +188,8 @@ function App() {
   return (
     <div>
       <Router>
-        <div>
           <NavBar userData={userData} />
-        </div>
-
         {/* <ProfileBar userData={userData}/> */}
-
         <Routes>
           <Route
             exact
@@ -228,7 +225,8 @@ function App() {
               />
             }
           ></Route>
-            <Route path="/product/:id" element={<ProductDetail products={products} stores={stores}/>} />
+            <Route path="/products/:id" element={<ProductDetail products={products} stores={stores}  userData={userData}
+                addToCart={addToCart}/>} />
           <Route
             path="/store"
             element={
@@ -267,6 +265,7 @@ function App() {
           <Route exact path="/admin" element={<AdminPage />}></Route>
           <Route exact path="/admin/super" element={<SuperAdminPage />}></Route>
         </Routes>
+        <Footer/>
       </Router>
     </div>
   );
