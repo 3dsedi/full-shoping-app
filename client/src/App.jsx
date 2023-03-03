@@ -104,6 +104,7 @@ function App() {
 
   const addToCart = async (userId, productId) => {
     const reqBody = { userId, productId };
+  
     try {
       const response = await fetch("http://localhost:3001/api/cart/additem", {
         mode: "cors",
@@ -115,6 +116,7 @@ function App() {
       });
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data +'data')
         setCartData(data.cart);
       }
     } catch (error) {
@@ -200,17 +202,9 @@ function App() {
           >
             {" "}
           </Route>
-          <Route
-            path="/store/:storeId"
-            render={({ match }) => (
-              <SelectedStore
-                storeId={match.params.storeId}
-                addToCart={addToCart}
-                userData={userData}
-              />
-            )}
-          />
-          {/* <Route path="/store/:storeId" element={<SelectedStore/>} /> */}
+          <Route path="/store/:id" element={<SelectedStore products={products} stores={stores}  userData={userData}
+                addToCart={addToCart}/>} />
+          
           <Route
             path="/login"
             element={<LoginForm onLogin={authorizeUser} />}

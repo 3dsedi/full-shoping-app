@@ -68,8 +68,6 @@ footer {
     justify-content: space-between;
     margin: 0;
     padding: 0;
-  
-  
   }
   .social-icons li {
     margin-right: 10px;
@@ -100,4 +98,34 @@ margin-right: 40px;
   .footer-contact {
     text-align: center;
     margin-left: 50px;
+    margin-bottom: 20px;
   }
+
+  @media screen and (max-width: 768px) {
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+  .footer-column {
+    flex: 1;
+    margin-right: 25px;
+    border-left: none;
+    border-bottom:  1px solid #6dc189 ;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+  }
+  .footer-column-category{
+    flex: 1;
+    margin-right: 30px;
+    border-left: none;
+    border-bottom:  1px solid #6dc189 ;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+  }
+  .footer-contact {
+    text-align: center;
+   margin-left: 15px;
+  }
+ 
+}

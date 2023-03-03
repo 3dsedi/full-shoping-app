@@ -34,42 +34,31 @@ const Home = (props) => {
     autoplaySpeed: 3000, // 3 seconds
   };
 
-  const advertisedStoreIds = ["1677219896778", "1677227582495"];
-  const handleStoreClick = async (storeId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3001/api/store/${storeId}`
-      );
-      const products = await response.json();
-      navigate(`/store/${storeId}`, { state: { products } });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const advertisedStoreIds = ["1677219896778", "1677227582495","1677599500333", "1677599562442"];
 
   return (
     <div className="slider-container">
       <Slider {...settings}>
         <div>
-          <img src={yek} alt="Image 1" />
+          <img src={yek} alt="Image 1"  onClick={() => navigate(`/products`)}/>
         </div>
         <div>
-          <img src={second} alt="Image 2" />
+          <img src={second} alt="Image 2"  onClick={() => navigate(`/products`)} />
         </div>
         <div>
-          <img src={third} alt="Image 3" />
+          <img src={third} alt="Image 3"   onClick={() => navigate(`/products`)}/>
         </div>
         <div>
-          <img src={fourth} alt="Image 4" />
+          <img src={fourth} alt="Image 4"  onClick={() => navigate(`/products`)} />
         </div>
         <div>
-          <img src={fifth} alt="Image 5" />
+          <img src={fifth} alt="Image 5"  onClick={() => navigate(`/products`)} />
         </div>
         <div>
-          <img src={sixth} alt="Image 6" />
+          <img src={sixth} alt="Image 6"  onClick={() => navigate(`/products`)} />
         </div>
         <div>
-          <img src={seventh} alt="Image 7" />
+          <img src={seventh} alt="Image 7"  onClick={() => navigate(`/products`)}/>
         </div>
       </Slider>
       <div >

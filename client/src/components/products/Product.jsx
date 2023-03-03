@@ -3,6 +3,8 @@ import "./Product.css";
 function Product({ product, addToCart, userData }) {
   const productId = product.productId;
   const userId = userData.id;
+  
+ 
   return (
     <div className={"product_container"}>
       <p className="product_title">{product.title} </p>

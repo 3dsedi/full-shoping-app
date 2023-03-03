@@ -95,7 +95,7 @@ function ProductList({ products, userData, addToCart }) {
        <div>
         {currentItems?.map((p, index) => (
           <Link key={index} to={`/products/${p.productId}`}>
-            <Product product={p} userData={userData} addToCart={addToCart} />
+            <Product product={p} userData={userData} addToCart={addToCart} onClick={() => { window.location.href=`/products/${p.productId}` }}/>
           </Link>
         ))}
       </div>

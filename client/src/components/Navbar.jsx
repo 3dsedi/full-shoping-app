@@ -3,7 +3,7 @@ import { IconButton } from "@mui/material"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalAtmRoundedIcon from "@mui/icons-material/LocalAtmRounded";
-import kitkat from '../pics/kitkat.jpg'
+import kitkat from './navadd.jpg'
 import "./Navbar.css";
 
 function NavBar({ userData }) {

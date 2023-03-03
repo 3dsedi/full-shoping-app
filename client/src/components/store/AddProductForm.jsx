@@ -16,7 +16,7 @@ const AddProduct = ({ storeData, addProduct }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1); // Navigate back one step
+    navigate(-1); 
   };
 
   const handleCategoryChange = (event) => {

@@ -8,7 +8,9 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-column">
           <h4>About Me</h4>
-          <p>We are a leading ecommerce platform providing a wide range of products to customers all over the world.</p>
+          <p>I started my journey as a full-stack developer by joining the school of applied technology &lt;salt/&gt;. 
+I create this e-commerce application as one of my projects in the &lt;salt/&gt; post-graduation program.</p>
+
         </div>
         <div className="footer-column-category">
           <h4>Categories</h4>

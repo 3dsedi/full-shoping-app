@@ -9,16 +9,8 @@ function ProductDetail({ products ,stores, addToCart, userData }) {
   const store = stores.find((s) => s.id === product.storeId);
   const userId = userData.id;
   const productId = product.productId;
-  // const [isAddedToCart, setIsAddedToCart] = useState(null);
+  console.log('sedi')
 
-  // const handleAddToCart = () => {
-  //   if (userData.length > 0) {
-  //     setIsAddedToCart(true);
-  //     addToCart(userId, productId);
-  //   } else {
-  //     setIsAddedToCart(false);
-  //   }
-  // };
 
   return (
     <div >
@@ -32,23 +24,14 @@ function ProductDetail({ products ,stores, addToCart, userData }) {
           <p className={`product_detail_quantity ${product.quantity > 10 ? 'more-than-10' : 'less-than-10'}`}>
       {product.quantity} in stock
     </p>
-    {/* <button className='add_to_cart' onClick={handleAddToCart}>
-      Add to Cart
-    </button>
-    {isAddedToCart && (
-      <p>One product has been added to your cart.</p>
-    )}
-    {!isAddedToCart && userData.length === 0 && (
-      <p>Please log in to add items to your cart.</p>
-    )} */}
     <button className="add_to_cart" onClick={() => addToCart(userId, productId)}>Add to Cart</button>
         </div>
       </div>
       <hr />
-      {/* <div className='store-info'>
+      <div className='store-info'>
       <h3>Store Info</h3>
-      <p>{store.storeName}</p>
-      </div> */}
+      {/* <p>{store.storeName}</p> */}
+      </div>
      
     </div>
   );
