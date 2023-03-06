@@ -5,9 +5,9 @@
   }
   
   .product-img {
-    width: 50%;
+    width: 300px;
     height: auto;
-    margin: 25px;
+    margin-left: 50px;
     object-fit: cover;
     border-radius: 10px;
   }

@@ -84,20 +84,7 @@ const Home = (props) => {
             onClick={() => navigate(`/store/${advertisedStoreIds[3]}`)}
           />
         </div>
-        {/* <Routes>
-          
-        </Routes> */}
       </div>
-      {/* <div className="products-container">
-        {products.map((product, index) => (
-          <Product
-            key={index}
-            product={product}
-            addToCart={addToCart}
-            userData={userData}
-          />
-        ))}
-      </div> */}
     </div>
   );
 };

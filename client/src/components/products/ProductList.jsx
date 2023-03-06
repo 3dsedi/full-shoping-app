@@ -60,7 +60,7 @@ function ProductList({ products, userData, addToCart }) {
   };
 
   return (
-    <article >
+    <div >
       <div className="product_list_images">
         <div>
         <img src={fashion} alt="Fashion" onClick={FashionHandler} />
@@ -92,7 +92,7 @@ function ProductList({ products, userData, addToCart }) {
       ) : (
         <p className="productlist_title">All Products</p>
       )}
-       <div>
+       <div className="product_card_container">
         {currentItems?.map((p, index) => (
           <Link key={index} to={`/products/${p.productId}`}>
             <Product product={p} userData={userData} addToCart={addToCart} onClick={() => { window.location.href=`/products/${p.productId}` }}/>
@@ -104,7 +104,7 @@ function ProductList({ products, userData, addToCart }) {
         totalItems={isAll ? products.length : filteredData.length}
         paginate={paginate}
       />
-    </article>
+    </div>
   );
 }
 

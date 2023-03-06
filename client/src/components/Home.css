@@ -3,12 +3,6 @@
   height: 300px;
 }
 
-/* @media screen and (max-width: 768px) {
-  .slider-container img {
-    
-    height: 20px
-  }
-} */
 
 @media screen and (max-width: 1024px) {
   .slider-container img {

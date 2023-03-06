@@ -16,9 +16,15 @@
     margin-right: 0;
   }
   .store_product_container img {
-   
+   /* width: 50%;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 10px; */
+    width: 90%;
+    height: 200px;
+    margin-bottom: 35px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 15px;
   }
   
   .store_product_title {
