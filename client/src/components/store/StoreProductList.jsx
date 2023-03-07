@@ -48,7 +48,7 @@ console.log(storeData)
       </li>
       </div>
       </div>
-      <div>
+      <div className="store-card-container">
         {filteredProducts.map((product , index) => (
           <StoreProduct key={index} product={product} />
         ))}

@@ -59,11 +59,11 @@ function NewUserForm({addUser}) {
         {/* <input placeholder={selectedRole === 'user' ? "name" : "store name"} id={"name_input"} ref={nameRef}/> */}
         <input placeholder={namePlaceholder} id={"name_input"} ref={nameRef}/>
           <br/>
-          <input placeholder={"email"} id={"email_input"} ref={emailRef}/>
+          <input type="email" placeholder="email" id="email_input" ref={emailRef}/>
           <br/>
-          <input placeholder={"password"} id={"password_input"} ref={passwordRef}/>
+          <input type="password" placeholder="password" id="password_input" ref={passwordRef}/>
           <br/>
-          <input placeholder={"confirm password"} id={"confirmed_password_input"} ref={confirmRef}/>
+          <input type="password" placeholder="confirm password" id="confirmed_password_input" ref={confirmRef}/>
           <br/>
           <button className="submit" >Add</button>
         </form>

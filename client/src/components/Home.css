@@ -37,16 +37,16 @@
 
 @media screen and (max-width: 767px) {
   .addvertized_stores img {
-    width: 140px;
-    height: auto;
+    width: 170px;
+    height: 90px;
     border-radius: 5px;
   }
+ 
   .addvertized_stores {
-    margin-left: 20px;
-    margin-right: 40px;
-    gap: 18PX;
-    padding-top: 50px; 
-    padding-bottom: 50px; 
-    flex-wrap: wrap;
+    display: block; 
+    margin-left: 8px;
+    margin-right: 0px;
+    padding-top: 70px; 
+    padding-bottom: 70px; 
   }
 }

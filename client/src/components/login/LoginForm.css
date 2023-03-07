@@ -44,3 +44,10 @@
     font-family: sa;
     font-size: 25px;
   }
+  @media screen and (max-width: 768px) {
+    .login_form {
+      width: 200px;
+      margin-top: -25px;
+      margin-bottom: 150px;
+    }
+  }

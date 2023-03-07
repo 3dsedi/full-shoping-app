@@ -11,6 +11,7 @@ const StoreProduct = (product) => {
       {product.product.quantity} in stock
     </p>
         <p className="store_product_price"> ${product.product.price}</p>
+        <button className="edit" >Edit</button>
       </div>
     </div>
   );
