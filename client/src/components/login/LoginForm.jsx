@@ -31,7 +31,7 @@ function LoginForm({onLogin}) {
       <>
         <p className='login_form_p'>Login</p>
         <form onSubmit={userLoginHandler} className={"login_form"} >
-          <input  placeholder="email" id="email_input" ref={emailRef}/>
+          <input type="email" placeholder="email" id="email_input" ref={emailRef}/>
           <br/>
           <input type="password" placeholder="password" id="password_input" ref={passRef} />
           <br/>
