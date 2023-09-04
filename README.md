@@ -28,7 +28,7 @@ Users can sort products based on their categories for better browsing.
 NOTE:
 To run the backend, ensure you have MongoDB installed and running on your system.
 The backend requires a connection to a MongoDB database to store and retrieve data. 
-In this project, i am providing the MongoDB connection string and JWT Token in a .env file for easy access.
+In this project, I am providing the MongoDB connection string and JWT Token in a .env file for easy access.
 
 In a production environment, sensitive information like the MongoDB connection string should not be exposed in 
 a .env file. Instead, it should be handled securely using environment variables or a configuration management system.
@@ -46,7 +46,7 @@ cd server
 npm start
 ```
 
-3.Frontend Setup:
+3. Frontend Setup:
 ```bash
 cd client
 npm run build
